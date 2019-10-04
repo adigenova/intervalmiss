@@ -8,7 +8,7 @@ IntervalMiss is a [Wengan](https://github.com/adigenova/wengan) component.
 ## Compilation
 ```make all```
 
-c compiler; compilation was tested with gcc version GCC/7.3.0-2.30 (Linux) and clang-1000.11.45.5 (Mac OSX).
+c++ compiler; compilation was tested with gcc version GCC/7.3.0-2.30 (Linux) and clang-1000.11.45.5 (Mac OSX).
 
 # License
 
