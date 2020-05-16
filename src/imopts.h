@@ -65,6 +65,9 @@ struct gengetopt_args_info
   float fst_arg;	/**< @brief Factor to compute std using avg*fst (default='0.1').  */
   char * fst_orig;	/**< @brief Factor to compute std using avg*fst original value given at command line.  */
   const char *fst_help; /**< @brief Factor to compute std using avg*fst help description.  */
+  int clib_arg;	/**< @brief Compute the coverage using first ranked library (default='0').  */
+  char * clib_orig;	/**< @brief Compute the coverage using first ranked library original value given at command line.  */
+  const char *clib_help; /**< @brief Compute the coverage using first ranked library help description.  */
   
   unsigned int help_given ;	/**< @brief Whether help was given.  */
   unsigned int version_given ;	/**< @brief Whether version was given.  */
@@ -76,6 +79,7 @@ struct gengetopt_args_info
   unsigned int cpu_given ;	/**< @brief Whether cpu was given.  */
   unsigned int mcl_given ;	/**< @brief Whether mcl was given.  */
   unsigned int fst_given ;	/**< @brief Whether fst was given.  */
+  unsigned int clib_given ;	/**< @brief Whether clib was given.  */
 
 } ;
 

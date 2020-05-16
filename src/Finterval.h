@@ -66,7 +66,7 @@ public:
     int getMinimum_cov() const;
     void setMinimum_cov(int minimum_cov);
     int getMinimum_ctg_len() const;
-    void mark_repeats_frags();
+    void mark_repeats_frags(int clib);
     void setMinimum_ctg_len(int minimum_ctg_len);
 };
 

@@ -61,7 +61,9 @@ MPCollection::MPCollection(string files) {
 
             switch(results.size()){
                 case 2:
-                    lib = new MPLibrary(results[0],atoi(results[1].c_str()),int(atoi(results[1].c_str())*0.1));
+                    //lib = new MPLibrary(results[0],atoi(results[1].c_str()),int(atoi(results[1].c_str())*0.1));
+                    //wait a type 0 short != long
+                    lib = new MPLibrary(results[0],atoi(results[1].c_str()));
                     break;
                 case 3:
                     lib = new MPLibrary(results[0],atoi(results[1].c_str()),atoi(results[2].c_str()));
@@ -77,8 +79,7 @@ MPCollection::MPCollection(string files) {
     cout << "Sorting libs by insert size:"<<endl;
     this->sort_libs();
     for(auto l:libs){
-        cout << l->getFile() <<" "<<l->getRank() <<" "<<l->getAvg_insert_size()<<" "<<l->getStd_insert_size()<<endl;
-
+        cout << l->getFile() <<" "<<l->getRank() <<" "<<l->getLibType()<<" "<<l->getAvg_insert_size()<<" "<<l->getStd_insert_size()<<endl;
     }
 }
 

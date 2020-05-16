@@ -401,13 +401,22 @@ void Finterval::setMinimum_ctg_len(int minimum_ctg_len) {
 
 
 
-void Finterval::mark_repeats_frags(void) {
+void Finterval::mark_repeats_frags(int clib) {
     //we populate the simple hash
     simplehash32 ctg2frags;
     //we fill the hash with the fragment lenght
     for(auto f:buffer){
-        ctg2frags[f.ctgid]+=f.d;
+        //we use all the fragments
+        if(clib == 0) {
+            ctg2frags[f.ctgid] += f.d;
+        }else{
+            //we use only the rank0/short libs to compute coverage
+            if(f.clib){
+                ctg2frags[f.ctgid] += f.d;
+            }
+        }
     }
+
     //we iter the contigs to compute the coverage
     vector<float> cov;
     for (auto con:this->contigs->get_all_contigs()) {
@@ -416,7 +425,6 @@ void Finterval::mark_repeats_frags(void) {
             c=(float)ctg2frags[con.ctgid]/(float)con.length;
             //cout << "Coverage CTG: "<<con.ctgid <<" "<<c<<" "<<con.length<<" "<<ctg2frags[con.ctgid]<<endl;
         }
-
         if(c>0) {
             cov.push_back(c);
         }

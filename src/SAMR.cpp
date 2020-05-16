@@ -26,7 +26,7 @@ SAMR::SAMR(string file){
 	if(sb.st_size < BUFFER_SIZE){
 			//std::cout << sb.st_size<<endl;
 			BUFFER_SIZE=sb.st_size-1;
-			cout << "ADjusting the buffer size to : "<< sb.st_size<<" "<<BUFFER_SIZE<<endl;
+			//cout << "ADjusting the buffer size to : "<< sb.st_size<<" "<<BUFFER_SIZE<<endl;
 	}
 	//we create the buffer
 	buf = new char[BUFFER_SIZE+1];
@@ -212,12 +212,14 @@ shortread SAMR::parse_entry(string original){
 
     //I need an assert to check the the SAM was well parsedl
     assert(results.size()>=6);
+    //read_id,orientation,ctg_id,pos,mapq,ksize,qcov
     //parsing each entry in the SAM
     rp.name=results[0];
     rp.contig=results[2];
     //read orientation for single and paired reads aligments
     rp.ori= (atoi(results[1].c_str()) & 16) ? false : true;
-    rp.len=int(results[9].length());
+    //rp.len=int(results[9].length());
+    rp.len=atoi(results[5].c_str());
     rp.pos=atoi(results[3].c_str());
     results.erase(results.begin(),results.end());
 	return rp;

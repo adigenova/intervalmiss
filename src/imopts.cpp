@@ -45,6 +45,7 @@ const char *gengetopt_args_info_help[] = {
   "  -t, --cpu=INT           Number of thread to use  (default=`1')",
   "  -l, --mcl=INT           Minimum contig length  (default=`500')",
   "      --fst=FLOAT         Factor to compute std using avg*fst  (default=`0.1')",
+  "      --clib=INT          Compute the coverage using first ranked library\n                            (default=`0')",
     0
 };
 
@@ -82,6 +83,7 @@ void clear_given (struct gengetopt_args_info *args_info)
   args_info->cpu_given = 0 ;
   args_info->mcl_given = 0 ;
   args_info->fst_given = 0 ;
+  args_info->clib_given = 0 ;
 }
 
 static
@@ -104,6 +106,8 @@ void clear_args (struct gengetopt_args_info *args_info)
   args_info->mcl_orig = NULL;
   args_info->fst_arg = 0.1;
   args_info->fst_orig = NULL;
+  args_info->clib_arg = 0;
+  args_info->clib_orig = NULL;
   
 }
 
@@ -124,6 +128,7 @@ void init_args_info(struct gengetopt_args_info *args_info)
   args_info->cpu_help = gengetopt_args_info_help[9] ;
   args_info->mcl_help = gengetopt_args_info_help[10] ;
   args_info->fst_help = gengetopt_args_info_help[11] ;
+  args_info->clib_help = gengetopt_args_info_help[12] ;
   
 }
 
@@ -266,6 +271,7 @@ cmdline_parser_release (struct gengetopt_args_info *args_info)
   free_string_field (&(args_info->cpu_orig));
   free_string_field (&(args_info->mcl_orig));
   free_string_field (&(args_info->fst_orig));
+  free_string_field (&(args_info->clib_orig));
   
   
 
@@ -323,6 +329,8 @@ cmdline_parser_dump(FILE *outfile, struct gengetopt_args_info *args_info)
     write_into_file(outfile, "mcl", args_info->mcl_orig, 0);
   if (args_info->fst_given)
     write_into_file(outfile, "fst", args_info->fst_orig, 0);
+  if (args_info->clib_given)
+    write_into_file(outfile, "clib", args_info->clib_orig, 0);
   
 
   i = EXIT_SUCCESS;
@@ -1487,6 +1495,7 @@ cmdline_parser_internal (
         { "cpu",	1, NULL, 't' },
         { "mcl",	1, NULL, 'l' },
         { "fst",	1, NULL, 0 },
+        { "clib",	1, NULL, 0 },
         { 0,  0, 0, 0 }
       };
 
@@ -1609,6 +1618,20 @@ cmdline_parser_internal (
                 &(local_args_info.fst_given), optarg, 0, "0.1", ARG_FLOAT,
                 check_ambiguity, override, 0, 0,
                 "fst", '-',
+                additional_error))
+              goto failure;
+          
+          }
+          /* Compute the coverage using first ranked library.  */
+          else if (strcmp (long_options[option_index].name, "clib") == 0)
+          {
+          
+          
+            if (update_arg( (void *)&(args_info->clib_arg), 
+                 &(args_info->clib_orig), &(args_info->clib_given),
+                &(local_args_info.clib_given), optarg, 0, "0", ARG_INT,
+                check_ambiguity, override, 0, 0,
+                "clib", '-',
                 additional_error))
               goto failure;
           

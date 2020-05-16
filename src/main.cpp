@@ -54,13 +54,17 @@ int main (int argc, char* argv[]){
 
     //todo: improve the computation of coverage from the fragments
     if(ai.ccoverage_given){
+        //compute the coverage from the give file
         contigs->mark_repeats(ai.ccoverage_arg);
     }else{
         //we compute the contig coverage and we mark the ones that are repeats from long reads
         //contigs->mark_repeats();
         //we use the fragments to compute the physical coverage of the contigs
-        treetmp->mark_repeats_frags();
+        treetmp->mark_repeats_frags(ai.clib_arg);
     }
+
+
+
 
     for (int i=0; i<ai.mbc_given; ++i) {
         cout << "=========== Checking Contigs ========="<<endl;

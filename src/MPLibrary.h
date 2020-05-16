@@ -52,6 +52,7 @@ private:
     int rank;//libraries are ranked according to their average insert size
     int mobs;//store the maximal number of obs to infer average insert size
     int number_pairs;
+    int libtype; //library type 0=short 1=long
 
     float pout; //fractions of outliers to discards while computing the average insert sizes
     string file;//file saving the SAM file
@@ -66,6 +67,9 @@ public:
     MPLibrary(string file);
     //another constructor which specified the outlayers
     MPLibrary(string file, int avg_ins, int std_ins);
+    //another constructor with lib type
+    MPLibrary(string file,int ltype);
+
 
     //Getter & Setter methods
     int getAvg_insert_size() const {
@@ -86,6 +90,11 @@ public:
 
     int getRank() const {
         return rank;
+    }
+
+    //get the lib type
+    int getLibType() const {
+        return libtype;
     }
 
     void setRank(int rank) {

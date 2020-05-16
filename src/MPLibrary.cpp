@@ -14,11 +14,28 @@ MPLibrary::MPLibrary(string file) {
     rank=0;
     pout=0;
     number_pairs=0;
+    libtype=0; //default is short
     this->file=file;
     //we infer the insert size of the library
     this->_infer_insert_size();
 }
 
+
+
+//default construct
+MPLibrary::MPLibrary(string file, int ltype) {
+    //we init the defaults variables
+    mobs=100000;
+    avg_insert_size=0;
+    std_insert_size=0;
+    rank=0;
+    pout=0;
+    number_pairs=0;
+    libtype=ltype;
+    this->file=file;
+    //we infer the insert size of the library
+    this->_infer_insert_size();
+}
 
 MPLibrary::MPLibrary(string file, int avg_ins, int std_ins ) {
     mobs=100000;
@@ -26,6 +43,7 @@ MPLibrary::MPLibrary(string file, int avg_ins, int std_ins ) {
     std_insert_size=std_ins;
     rank=0;
     pout=0.1;
+    libtype=0;//default is short
     this->file=file;
 }
 
@@ -110,6 +128,10 @@ void MPLibrary::load_library(Contig *a) {
                     ftmp.ctgid=a->ctg2id(fwd.contig);
                     ftmp.pos=pf;
                     ftmp.d=uint16_t(d);
+                      //we mark that the fragment should be used for cov computation
+                    if(this->libtype == 0){
+                        ftmp.clib=1;
+                    }
                     frags.push_back(ftmp);
                   }
               }

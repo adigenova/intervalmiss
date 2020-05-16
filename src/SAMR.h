@@ -37,6 +37,7 @@ typedef  struct fragmentPE{
     uint32_t ctgid=0;
     uint32_t pos=0;
     uint16_t d=0;
+    bool clib=0; //controls if the fragment is used to compute ctg cov.
 } fragmentPE;
 
 //faster SAM reader
